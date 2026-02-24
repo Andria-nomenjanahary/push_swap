@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ra.c                                            :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
+/*   By: yvoandri <yvoandri@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 11:05:49 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/23 11:13:29 by ainradan         ###   ########.fr       */
+/*   Created: 2026/02/23 16:12:38 by yvoandri          #+#    #+#             */
+/*   Updated: 2026/02/23 16:16:46 by yvoandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "bench.h"
 
-void	ft_ra(t_node **a, t_bench *bench)
+int	parse_args(int ac, char **av, int start_idx, t_node **a)
 {
-	ft_ra_rb(a);
-	write(1, "ra\n", 3);
-	if (bench)
-		bench_ra(bench);
+	int	i;
+
+	i = start_idx;
+	while (i < ac)
+	{
+		if (!parse_str(av[i], a))
+			return (0);
+		i++;
+	}
+	return (1);
 }

@@ -1,38 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utilities.c                              :+:      :+:    :+:   */
+/*   hashset_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 11:06:56 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/23 14:47:46 by yvoandri         ###   ########.fr       */
+/*   Created: 2026/02/21 13:04:05 by ainradan          #+#    #+#             */
+/*   Updated: 2026/02/21 13:04:14 by ainradan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "hashset.h"
 
-void	print_stack(t_node *stack)
+int	check_duplicates(t_node *stack)
 {
+	t_hashset	*set;
+	int			result;
+
+	set = hashset_create();
+	if (!set)
+		return (1);
+	result = 0;
 	while (stack)
 	{
-		ft_putnbr_fd(stack->value, 1);
+		if (!hashset_insert(set, stack->value))
+		{
+			result = 1;
+			break ;
+		}
 		stack = stack->next;
 	}
-	ft_putstr_fd("\n", 1);
+	hashset_destroy(set);
+	return (result);
 }
 
-int	get_pos_in_stack(t_node *stack, int value)
+int	is_sorted(t_node *stack)
 {
-	int	pos;
-
-	pos = 0;
-	while (stack)
+	if (!stack || !stack->next)
+		return (1);
+	while (stack->next)
 	{
-		if (stack->value == value)
-			return (pos);
-		pos++;
+		if (stack->value > stack->next->value)
+			return (0);
 		stack = stack->next;
 	}
-	return (pos);
+	return (1);
 }

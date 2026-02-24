@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ra.c                                            :+:      :+:    :+:   */
+/*   bench_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
+/*   By: yvoandri <yvoandri@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 11:05:49 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/23 11:13:29 by ainradan         ###   ########.fr       */
+/*   Created: 2026/02/23 17:18:58 by yvoandri          #+#    #+#             */
+/*   Updated: 2026/02/24 08:20:51 by yvoandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 #include "bench.h"
 
-void	ft_ra(t_node **a, t_bench *bench)
+void	bench_ra(t_bench *bench)
 {
-	ft_ra_rb(a);
-	write(1, "ra\n", 3);
-	if (bench)
-		bench_ra(bench);
+	bench->ra++;
+}
+
+void	bench_rb(t_bench *bench)
+{
+	bench->rb++;
+}
+
+void	bench_rr(t_bench *bench)
+{
+	bench->rr++;
+}
+
+void	bench_rra(t_bench *bench)
+{
+	bench->rra++;
+}
+
+void	bench_rrb(t_bench *bench)
+{
+	bench->rrb++;
 }

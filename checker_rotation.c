@@ -1,42 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push.c                                          :+:      :+:    :+:   */
+/*   checker_rotation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 11:05:43 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/23 11:18:35 by ainradan         ###   ########.fr       */
+/*   Created: 2026/02/23 16:27:56 by ainradan          #+#    #+#             */
+/*   Updated: 2026/02/24 15:04:45 by yvoandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "bench.h"
+#include "checker.h"
 
-void	ft_pa_pb(t_node **dst, t_node **src)
+static void	ra_rb(t_node **stack)
 {
-	t_node	*tmp;
+	t_node	*first;
+	t_node	*last;
 
-	if (!src || !*src)
+	if (!stack || !*stack || !(*stack)->next)
 		return ;
-	tmp = *src;
-	*src = (*src)->next;
-	tmp->next = *dst;
-	*dst = tmp;
+	first = *stack;
+	*stack = first->next;
+	last = *stack;
+	while (last->next)
+		last = last->next;
+	first->next = NULL;
+	last->next = first;
 }
 
-void	ft_pb(t_node **b, t_node **a, t_bench *bench)
+void	rr(t_node **stack_a, t_node **stack_b)
 {
-	ft_pa_pb(b, a);
-	write(1, "pb\n", 3);
-	if (bench)
-		bench_pb(bench);
+	ra_rb(stack_a);
+	ra_rb(stack_b);
 }
 
-void	ft_pa(t_node **a, t_node **b, t_bench *bench)
+void	rb(t_node **b)
 {
-	ft_pa_pb(a, b);
-	write(1, "pa\n", 3);
-	if (bench)
-		bench_pa(bench);
+	ra_rb(b);
+}
+
+void	ra(t_node **a)
+{
+	ra_rb(a);
 }

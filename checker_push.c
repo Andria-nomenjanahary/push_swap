@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_adaptive_algo.c                                 :+:      :+:    :+:   */
+/*   checker_push.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 11:05:25 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/23 11:05:28 by ainradan         ###   ########.fr       */
+/*   Created: 2026/02/23 16:13:44 by ainradan          #+#    #+#             */
+/*   Updated: 2026/02/23 17:21:11 by ainradan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "bench.h"
+#include "checker.h"
 
-void	ft_adaptive_algo(t_node **stack_a, t_node **stack_b, t_bench *bench)
+static void	pa_pb(t_node **dst, t_node **src)
 {
-	float	disorder;
+	t_node	*tmp;
 
-	disorder = compute_disorder(stack_a);
-	if (disorder < 0.2)
-		ft_simple_algo(stack_a, stack_b, bench);
-	else if (disorder >= 0.2 && disorder < 0.5)
-		ft_medium_algo(stack_a, stack_b, bench);
-	else
-		ft_complex_algo(stack_a, stack_b, bench);
+	if (!src || !*src)
+		return ;
+	tmp = *src;
+	*src = (*src)->next;
+	tmp->next = *dst;
+	*dst = tmp;
+}
+
+void	pb(t_node **b, t_node **a)
+{
+	pa_pb(b, a);
+}
+
+void	pa(t_node **a, t_node **b)
+{
+	pa_pb(a, b);
 }

@@ -1,4 +1,4 @@
-NAME = push_swap
+NAME = checker
 
 CC = cc
 
@@ -9,12 +9,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 INCLUDES = -I. -I$(LIBFT_DIR)
 
-SRC = main.c main_utils.c ft_swap.c ft_simple_algo.c \
-ft_rotation.c ft_ra.c ft_push.c ft_medium_algo.c \
-ft_medium_algo_utilities.c ft_complex_algo.c ft_adaptive_algo.c push_swap_utilities.c compute_disorder.c \
-calcul_end_index.c number_parser.c hashset_utils.c hashset.c \
-validation.c parsing.c general_utls.c bench.c ft_complex_algo_utilities.c parsing_utils.c bench_utils.c \
-bench_utils1.c bench_utils2.c
+SRC = checker.c main_utils.c checker_utils.c checker_push.c \
+checker_rotate_reverse.c checker_rotation.c checker_swap.c move_checker.c \
+hashset_utils.c stack_in_order.c hashset.c push_swap_utilities.c checker_read_line.c common_utils.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 16:45:41 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/20 13:47:35 by yvoandri         ###   ########.fr       */
+/*   Created: 2026/02/23 11:05:38 by ainradan          #+#    #+#             */
+/*   Updated: 2026/02/23 15:18:59 by yvoandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "bench.h"
 
 static void	sort_array(int *arr, int size)
 {
@@ -56,7 +57,7 @@ static int	*create_sort_array(int size, t_node *top)
 	return (arr);
 }
 
-static void	push_back_to_a(t_node **a, t_node **b)
+static void	push_back_to_a(t_node **a, t_node **b, t_bench *bench)
 {
 	int	max_val;
 	int	size;
@@ -70,46 +71,54 @@ static void	push_back_to_a(t_node **a, t_node **b)
 		if (pos <= size / 2)
 		{
 			while ((*b)->value != max_val)
-				ft_rb(b);
+				ft_rb(b, bench);
 		}
 		else
 		{
 			while ((*b)->value != max_val)
-				ft_rrb(b);
+				ft_rrb(b, bench);
 		}
-		ft_pa(a, b);
+		ft_pa(a, b, bench);
 	}
 }
 
-void	ft_medium_algo(t_node **a, t_node **b)
+static void	push_to_b(t_node **a, t_node **b, int *arr, t_bench *bench)
+{
+	int	i;
+	int	chunk;
+	int	size;
+
+	i = 0;
+	chunk = 15;
+	size = count_stack(a);
+	while (*a)
+	{
+		if ((*a)->value <= arr[i])
+		{
+			ft_pb(b, a, bench);
+			ft_rb(b, bench);
+			i++;
+		}
+		else if (i + chunk < size && (*a)->value <= arr[i + chunk])
+		{
+			ft_pb(b, a, bench);
+			i++;
+		}
+		else
+			ft_ra(a, bench);
+	}
+}
+
+void	ft_medium_algo(t_node **a, t_node **b, t_bench *bench)
 {
 	int	*arr;
 	int	size;
-	int	i;
-	int	chunk;
 
 	size = count_stack(a);
 	arr = create_sort_array(size, *a);
 	if (!arr)
 		return ;
-	i = 0;
-	chunk = 15;
-	while (*a)
-	{
-		if ((*a)->value <= arr[i])
-		{
-			ft_pb(b, a);
-			ft_rb(b);
-			i++;
-		}
-		else if (i + chunk < size && (*a)->value <= arr[i + chunk])
-		{
-			ft_pb(b, a);
-			i++;
-		}
-		else
-			ft_ra(a);
-	}
-	push_back_to_a(a, b);
+	push_to_b(a, b, arr, bench);
+	push_back_to_a(a, b, bench);
 	free(arr);
 }

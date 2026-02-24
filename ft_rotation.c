@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 10:22:28 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/20 08:54:51 by yvoandri         ###   ########.fr       */
+/*   Created: 2026/02/23 11:05:57 by ainradan          #+#    #+#             */
+/*   Updated: 2026/02/23 15:35:46 by yvoandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "bench.h"
 
 void	ft_ra_rb(t_node **stack)
 {
@@ -47,16 +48,28 @@ void	ft_rra_rrb(t_node **stack)
 	prev->next = NULL;
 }
 
-void	ft_rr(t_node **stack_a, t_node **stack_b)
+void	ft_rr(t_node **stack_a, t_node **stack_b, t_bench *bench)
 {
 	ft_ra_rb(stack_a);
 	ft_ra_rb(stack_b);
 	write(1, "rr\n", 3);
+	if (bench)
+		bench_rr(bench);
 }
 
-void	ft_rrr(t_node **stack_a, t_node **stack_b)
+void	ft_rrr(t_node **stack_a, t_node **stack_b, t_bench *bench)
 {
 	ft_rra_rrb(stack_a);
 	ft_rra_rrb(stack_b);
 	write(1, "rrr\n", 4);
+	if (bench)
+		bench_rrr(bench);
+}
+
+void	ft_rb(t_node **b, t_bench *bench)
+{
+	ft_ra_rb(b);
+	write(1, "rb\n", 3);
+	if (bench)
+		bench_rb(bench);
 }
