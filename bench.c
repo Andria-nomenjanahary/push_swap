@@ -3,41 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   bench.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
+/*   By: ainadan <ainradan@student.42antananariv    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 11:10:03 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/23 17:20:27 by yvoandri         ###   ########.fr       */
+/*   Created: 2026/03/04 09:51:12 by ainadan           #+#    #+#             */
+/*   Updated: 2026/03/04 12:43:53 by ainadan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bench.h"
 #include "push_swap.h"
-
-void	init_bench(t_bench *bench)
-{
-	bench->sa = 0;
-	bench->sb = 0;
-	bench->ss = 0;
-	bench->pa = 0;
-	bench->pb = 0;
-	bench->ra = 0;
-	bench->rb = 0;
-	bench->rr = 0;
-	bench->rra = 0;
-	bench->rrb = 0;
-	bench->rrr = 0;
-}
-
-int	get_total_ops(t_bench *bench)
-{
-	int	total;
-
-	total = bench->sa + bench->sb + bench->ss;
-	total += bench->pa + bench->pb;
-	total += bench->ra + bench->rb + bench->rr;
-	total += bench->rra + bench->rrb + bench->rrr;
-	return (total);
-}
 
 static void	print_bench_details(t_bench *bench)
 {
@@ -66,7 +40,7 @@ static void	print_bench_details(t_bench *bench)
 	ft_putstr_fd("\n", 2);
 }
 
-void	print_bench(t_bench *bench, float disorder, char *strategy)
+static void	print_bench(t_bench *bench, float disorder, char *strategy)
 {
 	int	int_part;
 	int	dec_part;
@@ -85,4 +59,20 @@ void	print_bench(t_bench *bench, float disorder, char *strategy)
 	ft_putnbr_fd(get_total_ops(bench), 2);
 	ft_putstr_fd("\n", 2);
 	print_bench_details(bench);
+}
+
+void	run_benchmark(t_node **a, t_node **b, char *flag)
+{
+	t_bench	bench;
+	float	disorder;
+	char	*strategy;
+
+	init_bench(&bench);
+	disorder = compute_disorder(a);
+	strategy = get_strategy_name(flag, disorder);
+	if (flag)
+		exec_algo(flag, a, b, &bench);
+	else
+		ft_adaptive_algo(a, b, &bench);
+	print_bench(&bench, disorder, strategy);
 }

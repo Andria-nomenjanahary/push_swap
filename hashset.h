@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashset.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
+/*   By: ainadan <ainradan@student.42antananariv    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 12:58:22 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/21 13:45:49 by ainradan         ###   ########.fr       */
+/*   Updated: 2026/03/04 13:06:46 by ainadan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ void					hashset_destroy(t_hashset *set);
 int						hashset_insert(t_hashset *set, int value);
 int						hashset_contains(t_hashset *set, int value);
 unsigned int			hash_function(int value);
+int						check_duplicates(t_node *stack);
+int						is_sorted(t_node *stack);
 
 #endif

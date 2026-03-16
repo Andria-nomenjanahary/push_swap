@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
+/*   By: ainadan <ainradan@student.42antananariv    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 13:26:32 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/23 16:16:23 by yvoandri         ###   ########.fr       */
+/*   Updated: 2026/03/06 09:38:59 by ainadan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	extract_number(char *str, int *i, char **start, int *len)
 {
-	while (str[*i] == ' ')
+	while (str[*i] == ' ' || str[*i] == '"' || str[*i] == '\'')
 		(*i)++;
 	if (!str[*i])
 		return (0);
@@ -30,6 +30,8 @@ static int	extract_number(char *str, int *i, char **start, int *len)
 		(*len)++;
 		(*i)++;
 	}
+	if (str[*i] == '"' || str[*i] == '\'')
+		(*i)++;
 	return (*len > 0);
 }
 
@@ -67,11 +69,13 @@ int	parse_str(char *str, t_node **a)
 		ft_strlcpy(num_str, start, len + 1);
 		if (!process_number(num_str, a))
 			return (0);
+		if (str[i] && str[i] != ' ' && str[i] != '"' && str[i] != '\'')
+			return (0);
 	}
 	return (1);
 }
 
-static int	count_in_str(char *str)
+int	count_in_str(char *str)
 {
 	int	count;
 	int	j;
@@ -80,7 +84,7 @@ static int	count_in_str(char *str)
 	j = 0;
 	while (str[j])
 	{
-		while (str[j] == ' ')
+		while (str[j] == ' ' || str[j] == '"' || str[j] == '\'')
 			j++;
 		if (ft_isdigit(str[j]) || (str[j] == '-' && ft_isdigit(str[j + 1])))
 		{

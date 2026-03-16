@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ainradan <ainradan@student.42antananari    +#+  +:+       +#+        */
+/*   By: ainadan <ainradan@student.42antananariv    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 15:27:32 by ainradan          #+#    #+#             */
-/*   Updated: 2026/02/24 15:38:17 by yvoandri         ###   ########.fr       */
+/*   Updated: 2026/03/05 09:35:03 by ainadan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	user_input(t_node **a, t_node **b, int *eof)
 {
 	char	*line;
 	int		ret;
+	int		move_result;
 
 	ret = read_line(&line);
 	if (ret == 0)
@@ -72,8 +73,10 @@ int	user_input(t_node **a, t_node **b, int *eof)
 	}
 	if (ret == -1)
 		return (-1);
-	move_checker(a, b, line);
+	move_result = move_checker(a, b, line);
 	free(line);
+	if (move_result == -1)
+		return (-1);
 	return (1);
 }
 
